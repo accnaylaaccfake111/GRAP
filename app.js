@@ -84,7 +84,7 @@ decrease.addEventListener('click', function(e){
     size.innerText = sizeValue
 })
 
-decrease.addEventListener('click', function(e){
+increase.addEventListener('click', function(e){
     sizeValue +=5
     sizeValue = sizeValue < 30 ? sizeValue : 30
     size.innerText = sizeValue
