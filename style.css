@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+body {
+    height: 100vh;
+}
+
+.tool {
+    background: rgb(73, 170, 255);
+    display: flex;
+    align-items: center;
+}
+
+.tool > * {
+    height: 40px;
+    width: 40px;
+    background: white;
+    margin: 5px;
+    font-size: 20px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#save {
+    margin-left: auto;
+}
