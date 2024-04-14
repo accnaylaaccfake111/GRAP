@@ -1,8 +1,12 @@
 var color = document.querySelector('#color');
+var paint = document.querySelector('#paint');
 var eraser = document.querySelector('#eraser');
 var decrease = document.querySelector('#decrease');
 var increase = document.querySelector('#increase');
-var size = document.querySelector('#size')
+var size = document.querySelector('#size');
+var clear = document.querySelector('#clear');
+var square = document.querySelector('#square');
+var circle = document.querySelector('#circle');
 var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
 
@@ -14,6 +18,8 @@ var ctx = canvas.getContext('2d');
 console.log('succes!')
 
 // innit
+var selecBrush = false
+var selecShapeSquare = false
 var currentPos = {
     x: 0,
     y: 0
@@ -39,26 +45,33 @@ document.addEventListener('mousedown',function(e){
 
 // draw
 document.addEventListener('mousemove', function(e){
+    console.log(currentPos.x,currentPos.y)
+    console.log(currentPosAfter.x,currentPosAfter.y)
+
     if (isDrawing){
         currentPosAfter = {
             x: e.offsetX,
             y: e.offsetY
         }
-
-        ctx.beginPath();
-        ctx.arc(currentPos.x, currentPos.y, sizeValue, 0, 2 * Math.PI);
-        ctx.fillStyle = colorPaint
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.moveTo(currentPos.x,currentPos.y);
-        ctx.lineTo(currentPosAfter.x,currentPosAfter.y);
-        ctx.strokeStyle = colorPaint
-        ctx.lineWidth = sizeValue * 2;
-        ctx.stroke();
     
-        currentPos.x = currentPosAfter.x
-        currentPos.y = currentPosAfter.y
+    if (selecBrush === true){
+            ctx.beginPath();
+            ctx.arc(currentPos.x, currentPos.y, sizeValue, 0, 2 * Math.PI);
+            ctx.fillStyle = colorPaint
+            ctx.fill();
+    
+            ctx.beginPath();
+            ctx.moveTo(currentPos.x,currentPos.y);
+            ctx.lineTo(currentPosAfter.x,currentPosAfter.y);
+            ctx.strokeStyle = colorPaint
+            ctx.lineWidth = sizeValue * 2;
+            ctx.stroke();
+        
+            currentPos.x = currentPosAfter.x
+            currentPos.y = currentPosAfter.y
+        }
+    } else if (selecShapeSquare === true){
+        ctx.strokeRect(currentPos.x,currentPos.y,currentPosAfter.x-currentPos.x,currentPosAfter.y-currentPos.y)
     }
 })
 
@@ -76,6 +89,12 @@ eraser.addEventListener('click', function(e){
     colorPaint = '#ffffff'
 })
 
+//paint
+paint.addEventListener('click', function(e){
+    selecBrush = true
+    console.log('brush')
+})
+
 // size
 decrease.addEventListener('click', function(e){
     sizeValue -=5
@@ -88,4 +107,15 @@ increase.addEventListener('click', function(e){
     sizeValue +=5
     sizeValue = sizeValue < 30 ? sizeValue : 30
     size.innerText = sizeValue
+})
+
+square.addEventListener('click', function(e){
+    selecShapeSquare = true
+    selecBrush = false
+    console.log('square')
+})
+
+// clear
+clear.addEventListener('click', function(e){
+    ctx.clearRect(0,0,1500,800);
 })
