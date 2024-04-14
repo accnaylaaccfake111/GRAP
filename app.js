@@ -5,7 +5,9 @@ var decrease = document.querySelector('#decrease');
 var increase = document.querySelector('#increase');
 var size = document.querySelector('#size');
 var clear = document.querySelector('#clear');
-var square = document.querySelector('#square');
+var command = document.querySelector('#command');
+var button = document.querySelector('commandButton');
+var rectangle = document.querySelector('#rectangle');
 var circle = document.querySelector('#circle');
 var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
@@ -19,7 +21,8 @@ console.log('succes!')
 
 // innit
 var selecBrush = false
-var selecShapeSquare = false
+var onClick = false
+var selecShapeRectangle = false
 var currentPos = {
     x: 0,
     y: 0
@@ -45,8 +48,8 @@ document.addEventListener('mousedown',function(e){
 
 // draw
 document.addEventListener('mousemove', function(e){
-    console.log(currentPos.x,currentPos.y)
-    console.log(currentPosAfter.x,currentPosAfter.y)
+    // console.log(currentPos.x,currentPos.y)
+    // console.log(currentPosAfter.x,currentPosAfter.y)
 
     if (isDrawing){
         currentPosAfter = {
@@ -70,7 +73,7 @@ document.addEventListener('mousemove', function(e){
             currentPos.x = currentPosAfter.x
             currentPos.y = currentPosAfter.y
         }
-    } else if (selecShapeSquare === true){
+    } else if (selecShapeRectangle === true){
         ctx.strokeRect(currentPos.x,currentPos.y,currentPosAfter.x-currentPos.x,currentPosAfter.y-currentPos.y)
     }
 })
@@ -109,8 +112,17 @@ increase.addEventListener('click', function(e){
     size.innerText = sizeValue
 })
 
-square.addEventListener('click', function(e){
-    selecShapeSquare = true
+// command
+button.addEventListener('click', function(e){
+    onClick = true
+    var command = command
+    console.log($`onClick`)
+    console.log($`command`)
+})
+
+// shape
+rectangle.addEventListener('click', function(e){
+    selecShapeRectangle = true
     selecBrush = false
     console.log('square')
 })
